@@ -15,12 +15,14 @@ def check_guess(guess_num)
 end
 
 get '/' do
-  erb :index, :locals=> {:number => settings.SECRET_NUMBER, :message => '', :back_color => 'white'}
+  cheat=params["cheat"]
+  erb :index, :locals=> {:number => settings.SECRET_NUMBER, :message => '', :back_color => 'white', :cheat => cheat}
 end
 
 post '/' do
+  cheat=params["cheat"]
   guess_num=params["guess"].to_i
   message=check_guess(guess_num)
-  erb :index, :locals=> {:number => settings.SECRET_NUMBER, :message => message[0], :back_color => message[1]}
+  erb :index, :locals=> {:number => settings.SECRET_NUMBER, :message => message[0], :back_color => message[1],:cheat => cheat}
 end
 
