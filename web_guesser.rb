@@ -3,16 +3,30 @@ require 'sinatra/reloader'
 
 set :SECRET_NUMBER, rand(100)
 
+  @@track=5
+
 def check_guess(guess_num)
-  secret=settings.SECRET_NUMBER
+  secret=settings.SECRET_NUMBER 
+  puts @@track
   if guess_num == secret
-     ["The secret number is #{secret}", '6BAE4B']
+      settings.SECRET_NUMBER=rand(100)
+      @@track=5
+     ["Congratulations! You've guessed. The secret number is #{secret}", '6BAE4B']
+  elsif @@track==1
+      settings.SECRET_NUMBER=rand(100) 
+      @@track=5
+      return ["I'm sorry, you've lost. A new number was generated.", 'white']
   elsif params["guess"].to_i > secret
+    @@track-=1
     guess_num - secret > 5 ?  ["Way too high!", 'C95757'] :  ["Too high!", 'FFBCBC']
   else 
+    @@track-=1
     secret - guess_num > 5 ?  ["Way too low!",'C95757'] :  ["Too low!",'FFBCBC']
   end
+  
 end
+
+
 
 get '/' do
   cheat=params["cheat"]
