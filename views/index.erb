@@ -2,8 +2,21 @@
 <html>
   <head></head>
   <body>
+    <form method='POST'>
+      <input type='text' name='guess' />
+      <input type='submit' value='Guess!'/>
+    </form>
+
+    <% if !message.empty? %>
     <p>
-      The SECRET NUMBER is <%= number %>
+       <%= message %>
     </p>
+    <% end %>
+
+    <p style="color: grey">
+      The number is <%= number %>
+    </p> 
+   
+    
   </body>
 </html>
